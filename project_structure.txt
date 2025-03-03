@@ -1,0 +1,41 @@
+dsa_python/
+│
+├── data_structures/
+│   ├── __init__.py
+│   ├── stack.py
+│   ├── queue.py
+│   ├── linked_list.py
+│   ├── binary_tree.py
+│   ├── graph.py
+│   ├── hash_table.py
+│   └── heap.py
+│
+├── algorithms/
+│   ├── __init__.py
+│   ├── sorting/
+│   │   ├── __init__.py
+│   │   ├── bubble_sort.py
+│   │   ├── quick_sort.py
+│   │   └── merge_sort.py
+│   └── searching/
+│       ├── __init__.py
+│       ├── binary_search.py
+│       └── linear_search.py
+│
+├── tests/
+│   ├── __init__.py
+│   ├── test_data_structures/
+│   │   ├── __init__.py
+│   │   ├── test_stack.py
+│   │   ├── test_queue.py
+│   │   ├── test_linked_list.py
+│   │   ├── test_binary_tree.py
+│   │   ├── test_graph.py
+│   │   ├── test_hash_table.py
+│   │   └── test_heap.py
+│   └── test_algorithms/
+│       ├── __init__.py
+│       ├── test_sorting.py
+│       └── test_searching.py
+│
+└── README.md 
