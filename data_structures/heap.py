@@ -12,13 +12,20 @@ class MinHeap:
         self.heap = []
         
     def parent(self, i):
+        """i indeksindeki elemanın ebeveyn indeksini döndürür"""
         return (i - 1) // 2
         
     def left_child(self, i):
+        """i indeksindeki elemanın sol çocuğunun indeksini döndürür"""
         return 2 * i + 1
         
     def right_child(self, i):
+        """i indeksindeki elemanın sağ çocuğunun indeksini döndürür"""
         return 2 * i + 2
+        
+    def swap(self, i, j):
+        """i ve j indekslerindeki elemanları değiştirir"""
+        self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
         
     def insert(self, key):
         """Heap'e yeni eleman ekler"""
@@ -30,34 +37,45 @@ class MinHeap:
         if not self.heap:
             return None
             
+        if len(self.heap) == 1:
+            return self.heap.pop()
+            
         min_val = self.heap[0]
-        self.heap[0] = self.heap[-1]
-        self.heap.pop()
-        
-        if self.heap:
-            self._heapify_down(0)
+        self.heap[0] = self.heap.pop()  # Son elemanı köke taşı
+        self._heapify_down(0)  # Kökten başlayarak heap özelliğini düzelt
             
         return min_val
         
     def _heapify_up(self, i):
-        """Elemanı yukarı taşıyarak heap özelliğini korur"""
-        parent = self.parent(i)
-        if i > 0 and self.heap[i] < self.heap[parent]:
-            self.heap[i], self.heap[parent] = self.heap[parent], self.heap[i]
-            self._heapify_up(parent)
-            
+        """i indeksindeki elemanı yukarı taşıyarak heap özelliğini korur"""
+        while i > 0:
+            parent = self.parent(i)
+            if self.heap[i] < self.heap[parent]:
+                self.swap(i, parent)
+                i = parent
+            else:
+                break
+                
     def _heapify_down(self, i):
-        """Elemanı aşağı taşıyarak heap özelliğini korur"""
-        min_idx = i
-        left = self.left_child(i)
-        right = self.right_child(i)
-        
-        if left < len(self.heap) and self.heap[left] < self.heap[min_idx]:
-            min_idx = left
+        """i indeksindeki elemanı aşağı taşıyarak heap özelliğini korur"""
+        size = len(self.heap)
+        while True:
+            smallest = i
+            left = self.left_child(i)
+            right = self.right_child(i)
             
-        if right < len(self.heap) and self.heap[right] < self.heap[min_idx]:
-            min_idx = right
-            
-        if min_idx != i:
-            self.heap[i], self.heap[min_idx] = self.heap[min_idx], self.heap[i]
-            self._heapify_down(min_idx) 
+            # Sol çocuk varsa ve kökten küçükse
+            if left < size and self.heap[left] < self.heap[smallest]:
+                smallest = left
+                
+            # Sağ çocuk varsa ve şimdiye kadar bulunan en küçükten küçükse
+            if right < size and self.heap[right] < self.heap[smallest]:
+                smallest = right
+                
+            # Eğer en küçük eleman değişmediyse işlem tamamdır
+            if smallest == i:
+                break
+                
+            # Değilse swap yapıp devam et
+            self.swap(i, smallest)
+            i = smallest 

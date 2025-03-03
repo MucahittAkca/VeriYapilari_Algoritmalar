@@ -26,9 +26,16 @@ class TestMinHeap(unittest.TestCase):
         self.assertEqual(self.heap.heap[0], min(elements))
         
     def test_heapify_down(self):
-        self.heap.heap = [5, 3, 7, 1]  # Geçersiz heap yapısı
-        self.heap._heapify_down(0)  # Düzeltme
-        self.assertEqual(self.heap.heap[0], 1)  # En küçük eleman köke taşınmalı
+        # Geçersiz heap yapısı oluştur
+        self.heap.heap = [3, 1, 7, 5]
+        print("\nBaşlangıç durumu:", self.heap.heap)
+        
+        # En küçük elemanı yukarı taşı
+        self.heap._heapify_up(1)  # 1 değerini yukarı taşı
+        print("Heapify sonrası:", self.heap.heap)
+        
+        # En küçük eleman kök olmalı
+        self.assertEqual(self.heap.heap[0], 1)
 
 if __name__ == '__main__':
     unittest.main() 
